@@ -218,7 +218,7 @@ fastify.get('/live', { sse: true }, async (request, reply) => {
 })
 ```
 
-> **Note:** On routes configured with `handlerTimeout`, `keepAlive()` hijacks the reply so that Fastify does not destroy the active stream when the timeout expires. In hijacked mode, Fastify detaches its lazy `request.signal` abort listener, so use `reply.sse.onClose()` to clean up subscriptions and background timers when clients disconnect.
+> **Note:** On routes configured with `handlerTimeout`, `keepAlive()` hijacks the reply so that Fastify does not destroy the active stream when the timeout expires. In hijacked mode, Fastify removes the listener that aborts `request.signal` on disconnect, so use `reply.sse.onClose()` to clean up subscriptions and background timers when clients disconnect.
 
 ### Message Replay
 
